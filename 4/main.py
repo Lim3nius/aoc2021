@@ -63,7 +63,7 @@ if __name__ == '__main__':
         matrixes.append(Matrix(m))
 
     def play(numbers: List[int], matrixes: List[Matrix]) -> List[Tuple[int, int]]:
-        '''play numbers on matrixes, return index of winning matrix & count of read numbers'''
+        '''play numbers till all matrixes are won, return tuples containing unmarked sum & winning number'''
         winners = []
         finished = set()
         for c in numbers:
