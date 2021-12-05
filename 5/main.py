@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
 from collections import defaultdict
-from typing import List, Tuple
+from typing import Tuple
+
+x, y = 0, 1
 
 
-def connect_pts(ln: List[Tuple[int, int]]):
-    p0, p1 = ln
-    x, y = 0, 1
+def connect_pts(p0, p1: Tuple[int, int]):
     pts = []
     sx = sign(p1[x] - p0[x])
     sy = sign(p1[y] - p0[y])
@@ -28,23 +28,18 @@ def sign(x):
         return 1
 
 
-def line_points(ln: List[Tuple[int, int]]):
-    p0, p1 = ln
-    x, y = 0, 1
+def line_points(p0, p1: Tuple[int, int]):
     if p0[x] == p1[x] or p0[y] == p1[y]:
-        return connect_pts(ln)
+        return connect_pts(p0, p1)
     else:
         return []
 
 
-def diagonal_points(ln: List[Tuple[int, int]]):
-    p0, p1 = ln
-    x, y = 0, 1
-
+def diagonal_points(p0, p1: Tuple[int, int]):
     if p0[x] == p1[x] or p0[y] == p1[y]:
         return []
     else:
-        return connect_pts(ln)
+        return connect_pts(p0, p1)
 
 
 if __name__ == '__main__':
@@ -58,14 +53,14 @@ if __name__ == '__main__':
 
     covered_points = defaultdict(int)
     for ln in data:
-        for pts in line_points(ln):
+        for pts in line_points(*ln):
             covered_points[pts] += 1
 
     overlap = list(filter(lambda v: v[1] > 1, covered_points.items()))
     print('Part 1 -> ', len(overlap))
 
     for ln in data:
-        for pts in diagonal_points(ln):
+        for pts in diagonal_points(*ln):
             covered_points[pts] += 1
 
     overlap = list(filter(lambda v: v[1] > 1, covered_points.items()))
