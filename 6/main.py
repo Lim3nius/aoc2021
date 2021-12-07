@@ -24,10 +24,7 @@ if __name__ == '__main__':
     with open('input', 'r') as h:
         fish_init = list(map(int, h.readline().split(',')))
 
-    acc = 0
-    for (i, f) in enumerate(fish_init):
-        acc += simulate_fish(f, 80) + 1
-    res_fish = acc
+    res_fish = sum([simulate_fish(f, 80)+1 for f in fish_init])
     print(f'Part 1 -> {res_fish}')
 
     states = {}
